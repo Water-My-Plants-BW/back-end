@@ -1,0 +1,40 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Sprout App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Water-My-Plants-BW/back-end.git"
+  },
+  "keywords": [
+    "sprout",
+    "build",
+    "week"
+  ],
+  "author": "bw_water-my-plants team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Water-My-Plants-BW/back-end/issues"
+  },
+  "homepage": "https://github.com/Water-My-Plants-BW/back-end#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.23.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.2",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}

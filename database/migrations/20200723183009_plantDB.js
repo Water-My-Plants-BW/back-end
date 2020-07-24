@@ -9,9 +9,14 @@ exports.up = async function (knex) {
   await knex.schema.createTable("plants", (table) => {
     table.increments();
     table.text("nickname").notNull().unique();
-    table.text("species").notNull();
+    table.text("species").notNull().unique();
     table.text("h2oFrequency").notNull();
-    table.integer("user_id").references("id").inTable("users");
+    table
+      .integer("user_id")
+      .references("id")
+      .inTable("users")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
   });
 };
 

@@ -5,8 +5,17 @@ exports.up = async function (knex) {
     table.text("phoneNumber").notNull();
     table.text("password").notNull();
   });
+
+  await knex.schema.createTable("plants", (table) => {
+    table.increments();
+    table.text("nickname").notNull().unique();
+    table.text("species").notNull();
+    table.text("h2oFrequency").notNull();
+    table.integer("user_id").references("id").inTable("users");
+  });
 };
 
 exports.down = async function (knex) {
   await knex.schema.dropTableIfExists("users");
+  await knex.schema.dropTableIfExists("plants");
 };

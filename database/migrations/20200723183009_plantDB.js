@@ -1,26 +1,27 @@
-exports.up = async function (knex) {
-  await knex.schema.createTable("users", (table) => {
-    table.increments();
-    table.text("username").notNull().unique();
-    table.text("phoneNumber").notNull();
-    table.text("password").notNull();
-  });
-
-  await knex.schema.createTable("plants", (table) => {
-    table.increments();
-    table.text("nickname").notNull().unique();
-    table.text("species").notNull().unique();
-    table.text("h2oFrequency").notNull();
-    table
-      .integer("user_id")
-      .references("id")
-      .inTable("users")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
-  });
+exports.up = function (knex) {
+  return knex.schema
+    .createTable("users", (users) => {
+      users.increments().notNullable().primary();
+      users.string("username", 255).notNullable().unique();
+      users.string("password", 255).notNullable();
+      users.integer("phoneNumber").notNullable();
+    })
+    .createTable("plants", (plants) => {
+      plants.increments();
+      plants.string("nickname", 255).notNullable().unique();
+      plants.string("species", 255).notNullable().unique();
+      plants.integer("h2oFrequency").notNullable();
+      plants.string("image", 255).unique();
+      plants
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+    });
 };
-
-exports.down = async function (knex) {
-  await knex.schema.dropTableIfExists("users");
-  await knex.schema.dropTableIfExists("plants");
+exports.down = function (knex) {
+  return knex.schema.dropTableIfExists("users").dropTableIfExists("plants");
 };

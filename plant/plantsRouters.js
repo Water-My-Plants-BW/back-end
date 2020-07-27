@@ -22,26 +22,18 @@ router.get(
   }
 );
 
-// Get plant by ID
+// Get an individual plant
 
-// router.get(
-//   "users/:id/plants/:plantID",
-//   validateUserId(),
-//   async (req, res, next) => {
-//     try {
-//       const plant = await Plants.findPlantsByID(
-//         req.params.id,
-//         req.params.plantID
-//       );
-//       if (!plant) {
-//         return res.status(404).json({ message: "Plants not found" });
-//       }
-//       res.json(plants);
-//     } catch (err) {
-//       next(err);
-//     }
-//   }
-// );
+router.get("/plants/:plantid", restrict(), (req, res, next) => {
+  const { plantid } = req.params;
+  Plants.findById(plantid)
+    .then((plant) => {
+      res.status(200).json(plant);
+    })
+    .catch((err) => {
+      res.status(err);
+    });
+});
 
 // Post a new Plant
 

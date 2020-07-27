@@ -52,6 +52,7 @@ router.post("/login", async (req, res, next) => {
     res.json({
       message: `Welcome ${user.username}!`,
       token: jwt.sign(payload, process.env.JWT_SECRET || "secret"),
+      userId: `${user.id}`,
     });
   } catch (err) {
     console.log(err);

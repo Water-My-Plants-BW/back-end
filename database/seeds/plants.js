@@ -17,20 +17,7 @@ exports.seed = function (knex) {
           image: "Coming Soon2",
           user_id: 1,
         },
-        {
-          nickname: "Big & Tall",
-          species: "Green",
-          h2oFrequency: 40,
-          image: "Coming Soon3",
-          user_id: 2,
-        },
-        {
-          nickname: "Shorty",
-          species: "Red",
-          h2oFrequency: 30,
-          image: "Coming Soon4",
-          user_id: 2,
-        },
+        ,
       ]);
     });
 };

@@ -37,6 +37,8 @@ router.get("/plants/:plantid", restrict(), (req, res, next) => {
 
 // Post a new Plant
 
+router.post("/users/:userid/plants");
+
 // Put an existing Plant
 
 router.put("/plants/:plantid", (req, res) => {

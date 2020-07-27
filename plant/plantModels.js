@@ -1,19 +1,5 @@
 const db = require("../database/config");
 
-// function getAllPlants(id) {
-//   return db("plants as p")
-//     .join("users as u, u.id, p.user_id")
-//     .select(
-//       "p.id",
-//       "p.nickname",
-//       "p.species",
-//       "p.h2oFrequency",
-//       "p.image",
-//       "p.user_id"
-//     )
-//     .where("u.id", id);
-// }
-
 function findById(id) {
   return db("plants").where({ id }).first();
 }
@@ -45,20 +31,10 @@ function findPlantsByUserID(userId) {
     );
 }
 
-// function findPlantsByID(userId, plantID) {
-//   return db("posts as plants")
-//     .innerJoin("users as u", "u.id", "p.user_id")
-//     .where("p.user_id", userId)
-//     .where("p.id", plantID)
-//     .select("p.nickname", "p.species", "p.h2oFrequency", "p.image");
-// }
-
 module.exports = {
-  //   getAllPlants,
   findById,
   addPlants,
   updatePlant,
   removePlants,
   findPlantsByUserID,
-  //   findPlantsByID,
 };

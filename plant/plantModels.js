@@ -31,27 +31,27 @@ function removePlants(id) {
   return db("plants").where({ id }).del();
 }
 
-// function findPlantsByUserID(userId) {
-//   return db("plants as p")
-//     .innerJoin("users as u", "u.id", "p.user_id")
-//     .where("p.user_id", userId)
-//     .select(
-//       "p.id",
-//       "p.nickname",
-//       "p.species",
-//       "p.h2oFrequency",
-//       "p.image",
-//       "p.user_id"
-//     );
-// }
+function findPlantsByUserID(userId) {
+  return db("plants as p")
+    .innerJoin("users as u", "u.id", "p.user_id")
+    .where("p.user_id", userId)
+    .select(
+      "p.id",
+      "p.nickname",
+      "p.species",
+      "p.h2oFrequency",
+      "p.image",
+      "p.user_id"
+    );
+}
 
-// function findPlantsByID(userId, postId) {
-//   return db("posts as plants")
-//     .innerJoin("users as u", "u.id", "p.user_id")
-//     .where("p.user_id", userId)
-//     .where("p.id", postId)
-//     .select("p.nickname", "p.species", "p.h2oFrequency", "p.image");
-// }
+function findPlantsByID(userId, plantID) {
+  return db("posts as plants")
+    .innerJoin("users as u", "u.id", "p.user_id")
+    .where("p.user_id", userId)
+    .where("p.id", plantID)
+    .select("p.nickname", "p.species", "p.h2oFrequency", "p.image");
+}
 
 module.exports = {
   getAllPlants,
@@ -59,6 +59,6 @@ module.exports = {
   addPlants,
   updatePlant,
   removePlants,
-  //   findPlantsByUserID,
-  //   findPlantsByID,
+  findPlantsByUserID,
+  findPlantsByID,
 };

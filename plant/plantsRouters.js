@@ -41,6 +41,41 @@ router.get("/plants/:plantid", restrict(), (req, res, next) => {
 
 // Delete an existing plant
 
+// router.delete("plants/:plantid", (req, res) => {
+//   const { plantid } = req.params;
+//   Plants.removePlants(plantid)
+//     .then((deleted) => {
+//       if (deleted) {
+//         res.json({ removed: deleted });
+//       } else {
+//         res.status(404).json({ message: "Could not find Plant" });
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(err);
+//     });
+// });
+
+router.delete("/plants/:plantid", (req, res) => {
+  const { plantid } = req.params;
+
+  Plants.findById(plantid)
+    .then((plant) => {
+      if (plant) {
+        Plants.removePlants(plantid)
+          .then((deletedPlant) => {
+            res.status(200).json({ removed: deletedPlant });
+          })
+          .catch((err) => {
+            res.status(400).json({ message: "Error removing plant" });
+          });
+      } else {
+        res.status(400).json({ message: "Error finding Plant" });
+      }
+    })
+    .catch((err) => res.status(500).json(err));
+});
+
 // MiddleWare
 function validateUserId() {
   return async (req, res, next) => {

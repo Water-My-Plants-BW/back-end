@@ -45,13 +45,13 @@ function findPlantsByUserID(userId) {
     );
 }
 
-function findPlantsByID(userId, plantID) {
-  return db("posts as plants")
-    .innerJoin("users as u", "u.id", "p.user_id")
-    .where("p.user_id", userId)
-    .where("p.id", plantID)
-    .select("p.nickname", "p.species", "p.h2oFrequency", "p.image");
-}
+// function findPlantsByID(userId, plantID) {
+//   return db("posts as plants")
+//     .innerJoin("users as u", "u.id", "p.user_id")
+//     .where("p.user_id", userId)
+//     .where("p.id", plantID)
+//     .select("p.nickname", "p.species", "p.h2oFrequency", "p.image");
+// }
 
 module.exports = {
   //   getAllPlants,
@@ -60,5 +60,5 @@ module.exports = {
   updatePlant,
   removePlants,
   findPlantsByUserID,
-  findPlantsByID,
+  //   findPlantsByID,
 };

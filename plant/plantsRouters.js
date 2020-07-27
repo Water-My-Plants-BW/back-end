@@ -37,7 +37,16 @@ router.get("/plants/:plantid", restrict(), (req, res, next) => {
 
 // Post a new Plant
 
-router.post("/users/:userid/plants");
+router.post("/users/:id/plants", validateUserId(), async (req, res, next) => {
+  try {
+    const newPlant = req.body;
+    newPlant.user_id = req.params.id;
+    Plants.addPlant(newPlant);
+    res.status(200).json(newPlant);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Put an existing Plant
 

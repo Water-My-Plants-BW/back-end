@@ -4,8 +4,9 @@ function findById(id) {
   return db("plants").where({ id }).first();
 }
 
-function addPlants(plantData) {
-  return db("plants").insert(plantData);
+async function addPlant(plant) {
+  const [id] = await db("plants").insert(plant);
+  return findById(id);
 }
 
 async function updatePlant(changes, id) {
@@ -33,7 +34,7 @@ function findPlantsByUserID(userId) {
 
 module.exports = {
   findById,
-  addPlants,
+  addPlant,
   updatePlant,
   removePlants,
   findPlantsByUserID,

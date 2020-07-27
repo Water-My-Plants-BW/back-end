@@ -39,22 +39,26 @@ router.get("/plants/:plantid", restrict(), (req, res, next) => {
 
 // Put an existing Plant
 
-// Delete an existing plant
+router.put("/plants/:plantid", (req, res) => {
+  const { plantid } = req.params;
+  const changes = req.body;
 
-// router.delete("plants/:plantid", (req, res) => {
-//   const { plantid } = req.params;
-//   Plants.removePlants(plantid)
-//     .then((deleted) => {
-//       if (deleted) {
-//         res.json({ removed: deleted });
-//       } else {
-//         res.status(404).json({ message: "Could not find Plant" });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(err);
-//     });
-// });
+  Plants.findById(plantid)
+    .then((plant) => {
+      if (plant) {
+        Plants.updatePlant(changes, plantid).then((updatedPlant) => {
+          res.status(201).json(updatedPlant);
+        });
+      } else {
+        res.status(404).json({ message: "Couldn't find your plant" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+// Delete an existing plant
 
 router.delete("/plants/:plantid", (req, res) => {
   const { plantid } = req.params;

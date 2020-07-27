@@ -22,9 +22,9 @@ function addPlants(plantData) {
   return db("plants").insert(plantData);
 }
 
-async function updatePlant(id, changes) {
+async function updatePlant(changes, id) {
   await db("plants").where({ id }).update(changes);
-  return findById(id);
+  return db("plants").where({ id }).first();
 }
 
 function removePlants(id) {

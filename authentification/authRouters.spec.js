@@ -5,6 +5,7 @@ const db = require("../database/config");
 describe("POST /register", () => {
   afterAll(async () => {
     await db("users").truncate();
+    await db("users").delete();
   });
   beforeEach(async () => {
     await db("users").truncate();
@@ -38,25 +39,26 @@ describe("POST /register", () => {
   });
 });
 
-describe("Post /login", () => {
-  afterAll(async () => {
+describe("POST /login", () => {
+  afterEach(async () => {
     await db("users").truncate();
   });
-
   beforeEach(async () => {
     await db("users").truncate();
-    await await request(server).post("/register").send({
-      username: "Henry1",
+    await request(server).post("/register").send({
+      username: "Henry",
       password: "Password1",
-      phoneNumber: 8675309,
+      phoneNumber: 31334340,
+    });
+    afterAll(async () => {
+      await db.destroy();
     });
   });
 
-  it("should allow registered user to sign in", async () => {
-    const response = await (await request(server).post("/login")).send({
-      username: "Henry1",
-      password: "Password1",
-    });
-    expect(response.statusCode.toBe(200));
+  it("should allow a registered user to log in", async () => {
+    const response = await request(server)
+      .post("/login")
+      .send({ username: "Henry", password: "Password1" });
+    expect(response.status).toBe(200);
   });
 });

@@ -27,7 +27,6 @@ function findPlantsByUserID(userId) {
       "p.nickname",
       "p.species",
       "p.h2oFrequency",
-      "p.image",
       "p.user_id"
     );
 }

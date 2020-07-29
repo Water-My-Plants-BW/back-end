@@ -11,7 +11,6 @@ exports.up = function (knex) {
       plants.string("nickname", 255).notNullable().unique();
       plants.string("species", 255).notNullable();
       plants.integer("h2oFrequency").notNullable();
-      plants.string("image", 255).unique();
       plants
         .integer("user_id")
         .unsigned()

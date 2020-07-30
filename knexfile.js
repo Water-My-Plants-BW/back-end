@@ -11,9 +11,8 @@ module.exports = {
     migrations: {
       directory: './database/migrations'
     }
-  }
-}
-,
+     
+},
   development: {
     client: "sqlite3",
     connection: { filename: "./database/auth.db3" },

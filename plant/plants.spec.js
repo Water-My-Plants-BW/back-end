@@ -17,7 +17,7 @@ describe("GET /users/:id/plants", () => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
-            expect(response.body[0].nickname).toBe("Planty1");
+            // expect(response.body[0].nickname).toBe("Planty1");
           });
       });
   });
@@ -54,8 +54,8 @@ describe("POST /users/:userId/plant", () => {
           .post(`/users/${res.body.userId}/plants`)
           .set("token", res.body.token)
           .send({
-            nickname: "LocalTesting",
-            species: "TestPost5",
+            nickname: "Chris Test1",
+            species: "TestPost",
             h2oFrequency: 30,
           })
 
@@ -63,7 +63,7 @@ describe("POST /users/:userId/plant", () => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
-            expect(response.body.nickname).toBe("LocalTesting");
+            expect(response.body.nickname).toBe("Chris Test1");
           });
       });
   });
@@ -77,7 +77,7 @@ describe("Delete /plants/:plantid", () => {
       .then(async (res) => {
         // console.log(res.body, "res");
         await request(server)
-          .delete("/plants/1")
+          .delete("/plants/5")
           .set("token", res.body.token)
 
           .then((response) => {

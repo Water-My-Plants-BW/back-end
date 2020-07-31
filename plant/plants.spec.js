@@ -17,12 +17,13 @@ describe("GET /users/:id/plants", () => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
+            expect(response.body[0].nickname).toBe("Planty1");
           });
       });
   });
 });
 
-describe("GET /plant/:plantid", () => {
+describe("GET /plants/:plantid", () => {
   it("should return 200 and JSON", async () => {
     await request(server)
       .post("/login")
@@ -30,14 +31,13 @@ describe("GET /plant/:plantid", () => {
       .then(async (res) => {
         // console.log(res.body, "res");
         await request(server)
-          .get("/plants/:plantid")
+          .get("/plants/1")
           .set("token", res.body.token)
 
           .then((response) => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
-            // expect(response.length).toBe(1);
           });
       });
   });
@@ -54,8 +54,8 @@ describe("POST /users/:userId/plant", () => {
           .post(`/users/${res.body.userId}/plants`)
           .set("token", res.body.token)
           .send({
-            nickname: "Local Test5",
-            species: "TestPost2",
+            nickname: "LocalTesting",
+            species: "TestPost5",
             h2oFrequency: 30,
           })
 
@@ -63,7 +63,27 @@ describe("POST /users/:userId/plant", () => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
-            expect(response.body.nickname).toBe("Local Test5");
+            expect(response.body.nickname).toBe("LocalTesting");
+          });
+      });
+  });
+});
+
+describe("Delete /plants/:plantid", () => {
+  it("should return 200 and JSON", async () => {
+    await request(server)
+      .post("/login")
+      .send({ username: "Henry", password: "password" })
+      .then(async (res) => {
+        // console.log(res.body, "res");
+        await request(server)
+          .delete("/plants/1")
+          .set("token", res.body.token)
+
+          .then((response) => {
+            // console.log(response.headers, "response headers");
+            expect(response.status).toBe(200);
+            expect(response.type).toMatch(/json/i);
           });
       });
   });

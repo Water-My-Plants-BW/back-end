@@ -63,7 +63,11 @@ router.post("/login", async (req, res, next) => {
 
 router.put("/user/:id", async (req, res, next) => {
   const { id } = req.params;
-  const changes = req.body;
+  const { phoneNumber } = req.body;
+  const changes = {
+    // password: await bcrypt.hash(password, 14),
+    phoneNumber: phoneNumber,
+  };
 
   Users.findById(id)
     .then((user) => {

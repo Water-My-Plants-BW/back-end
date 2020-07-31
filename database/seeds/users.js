@@ -12,7 +12,7 @@ const user2 = {
   password: "Me123",
   phoneNumber: 313989879,
 };
-user2.password = bcrypt.hashSync(user1.password, 10);
+user2.password = bcrypt.hashSync(user2.password, 10);
 
 exports.seed = function (knex) {
   return knex("users")

@@ -3,28 +3,32 @@ const server = require("../api/server");
 const db = require("../database/config");
 
 describe("GET /users/:id/plants", () => {
-  afterAll(async () => {
-    await db("plants").truncate();
-    await db("users").truncate();
-  });
-  beforeEach(async () => {
-    await db("plants").truncate();
-    await db("users").truncate();
-    await request(server).post("/register").send({
-      username: "Tim",
-      password: "Password1",
-      phoneNumber: 31334340,
-    });
-  });
+  //   afterAll(async () => {
+  //     await db("plants").truncate();
+  //     await db("users").truncate();
+  //   });
+  //   beforeEach(async () => {
+  //     // await db("plants").truncate();
+  //     // await db("users").truncate();
+  //     await request(server)
+  //       .post("/register")
+  //       .send({ username: "Pat", password: "pass", phoneNumber: 3232323 });
+  //   });
 
-  it("should return 200 status code", async () => {
-    const login = await request(server)
+  it("should return 200 http status code", async () => {
+    await request(server)
       .post("/login")
-      .send({ username: "Tim", password: "Password1" });
+      .send({ username: "Henry", password: "password" })
+      .then(async (res) => {
+        console.log(res.body, "res");
+        await request(server)
+          .get("/users/1/plants")
+          .set("authorization", res.body.token)
 
-    const post = await request(server)
-      .get(`/users/${login.body.userID}/plants`)
-      .set("token", login.body.token);
-    expect(post.status).toBe(200);
+          .then((response) => {
+            console.log(response, "response");
+            expect(response.statusCode).toBe(200);
+          });
+      });
   });
 });

@@ -12,12 +12,12 @@ router.get(
   "/users/:id/plants",
   validateUserId(),
   restrict(),
-  async (req, res, next) => {
+  async (req, res) => {
     try {
       const plants = await Plants.findPlantsByUserID(req.params.id);
       res.json(plants);
     } catch (err) {
-      next(err);
+      console.log(err);
     }
   }
 );
@@ -96,6 +96,7 @@ function validateUserId() {
   return async (req, res, next) => {
     try {
       const { id } = req.params;
+      console.log(id);
       const user = await db("users").where({ id }).first();
 
       if (!user) {

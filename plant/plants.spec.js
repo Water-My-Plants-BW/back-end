@@ -31,13 +31,14 @@ describe("GET /plants/:plantid", () => {
       .then(async (res) => {
         // console.log(res.body, "res");
         await request(server)
-          .get("/plants/1")
+          .get("/plants/2")
           .set("token", res.body.token)
 
           .then((response) => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
+            expect(response.body.nickname).toBe("Mr Slim");
           });
       });
   });
@@ -54,7 +55,7 @@ describe("POST /users/:userId/plant", () => {
           .post(`/users/${res.body.userId}/plants`)
           .set("token", res.body.token)
           .send({
-            nickname: "Chris Test1",
+            nickname: "Friday Test1",
             species: "TestPost",
             h2oFrequency: 30,
           })
@@ -63,7 +64,7 @@ describe("POST /users/:userId/plant", () => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
             expect(response.type).toMatch(/json/i);
-            expect(response.body.nickname).toBe("Chris Test1");
+            expect(response.body.nickname).toBe("Friday Test1");
           });
       });
   });
@@ -83,6 +84,30 @@ describe("Delete /plants/:plantid", () => {
           .then((response) => {
             // console.log(response.headers, "response headers");
             expect(response.status).toBe(200);
+            expect(response.type).toMatch(/json/i);
+          });
+      });
+  });
+});
+
+describe("PUT /plants/:plantid", () => {
+  it("should return 201 and JSON", async () => {
+    await request(server)
+      .post("/login")
+      .send({ username: "Henry", password: "password" })
+      .then(async (res) => {
+        // console.log(res.body, "res");
+        await request(server)
+          .put("/plants/1")
+          .set("token", res.body.token)
+          .send({
+            nickname: "Hope this Works1",
+            species: "TestPost",
+            h2oFrequency: 30,
+          })
+
+          .then((response) => {
+            expect(response.status).toBe(201);
             expect(response.type).toMatch(/json/i);
           });
       });

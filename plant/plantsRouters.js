@@ -96,7 +96,7 @@ function validateUserId() {
   return async (req, res, next) => {
     try {
       const { id } = req.params;
-      console.log(id);
+      // console.log(id);
       const user = await db("users").where({ id }).first();
 
       if (!user) {

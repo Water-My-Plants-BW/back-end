@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-function restrict(role) {
+function restrict() {
   return async (req, res, next) => {
     const authError = {
       message: "Invalid Creds",
     };
     try {
-      const token = req.headers.authorization;
+      const token = req.headers.token;
       if (!token) {
         return res.status(401).json(authError);
       }

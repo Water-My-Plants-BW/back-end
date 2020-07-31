@@ -2,8 +2,6 @@ const server = require("./api/server.js");
 
 const PORT = process.env.PORT || 2100;
 
-if (!module.parent) {
-  server.listen(PORT, () => {
-    console.log(`\n=== Server listening on http://localhost:${PORT} ===\n`);
-  });
-}
+server.listen(PORT, () => {
+  console.log(`\n=== Server listening on http://localhost:${PORT} ===\n`);
+});
